@@ -1,42 +1,36 @@
-let clickTimer;
-let clickCount = 0;
+let clickTimers = [];
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === 'startClick') {
-    startClicking(message.x1, message.y1, message.x2, message.y2, message.uptime);
-  } else if (message.action === 'stopClick') {
+  if (message.action === 'addCoordinate') {
+    addCoordinate(message.x, message.y, message.interval);
+  } else if (message.action === 'stopClicking') {
     stopClicking();
   }
 });
 
-function startClicking(x1, y1, x2, y2, uptime) {
-  clickCount = 0; // Reset click count each time it starts
-
-  clickTimer = setInterval(() => {
-    clickCount++;
-    
-    if (clickCount % 2 === 1) {
-      clickAt(x1, y1);
-    } else {
-      clickAt(x2, y2);
-    }
-    
-  }, uptime);
+function addCoordinate(x, y, interval) {
+  let intervalInMillis = interval * 60000;  // Chuyển đổi phút sang mili giây
+  let clickTimer = setInterval(() => {
+    clickAtCoordinate(x, y);
+  }, intervalInMillis);
+  
+  clickTimers.push(clickTimer);
 }
 
-function clickAt(x, y) {
+function clickAtCoordinate(x, y) {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.executeScript(tabs[0].id, {
       code: `
         let element = document.elementFromPoint(${x}, ${y});
-        if (element) element.click();
+        if (element) {
+          element.click();
+        }
       `
     });
   });
 }
 
 function stopClicking() {
-  if (clickTimer) {
-    clearInterval(clickTimer);
-  }
+  clickTimers.forEach(timer => clearInterval(timer));
+  clickTimers = [];
 }
