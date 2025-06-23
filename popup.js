@@ -1,17 +1,22 @@
-document.getElementById('startBtn').addEventListener('click', () => {
-  let uptime = parseInt(document.getElementById('uptime').value, 10);
-  chrome.runtime.sendMessage({
-    action: 'startClick',
-    x1: 100,  // Example point 1 (x, y)
-    y1: 100,  // Example point 1 (x, y)
-    x2: 200,  // Example point 2 (x, y)
-    y2: 200,  // Example point 2 (x, y)
-    uptime: uptime
-  });
+document.getElementById('addCoordBtn').addEventListener('click', () => {
+  let x = parseInt(document.getElementById('xCoord').value, 10);
+  let y = parseInt(document.getElementById('yCoord').value, 10);
+  let interval = parseInt(document.getElementById('interval').value, 10);
+
+  if (!isNaN(x) && !isNaN(y) && !isNaN(interval)) {
+    chrome.runtime.sendMessage({
+      action: 'addCoordinate',
+      x: x,
+      y: y,
+      interval: interval
+    });
+  } else {
+    alert("Vui lòng nhập tọa độ và thời gian hợp lệ.");
+  }
 });
 
 document.getElementById('stopBtn').addEventListener('click', () => {
   chrome.runtime.sendMessage({
-    action: 'stopClick'
+    action: 'stopClicking'
   });
 });
