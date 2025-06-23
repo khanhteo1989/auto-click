@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Click Points Extension</title>
+    <title>Click at Coordinates with Time Interval</title>
     <style>
       body {
-        width: 200px;
+        width: 250px;
         padding: 10px;
+      }
+      input {
+        width: 80%;
+        padding: 5px;
+        margin: 5px 0;
       }
       button {
         width: 100%;
@@ -15,10 +20,17 @@
     </style>
   </head>
   <body>
-    <button id="startBtn">Start Clicking</button>
-    <button id="stopBtn">Stop Clicking</button>
-    <label for="uptime">Uptime (ms):</label>
-    <input type="number" id="uptime" value="2000">
+    <label for="xCoord">X Coordinate:</label>
+    <input type="number" id="xCoord" placeholder="X Coordinate">
+    <br>
+    <label for="yCoord">Y Coordinate:</label>
+    <input type="number" id="yCoord" placeholder="Y Coordinate">
+    <br>
+    <label for="interval">Time Interval (minutes):</label>
+    <input type="number" id="interval" placeholder="Interval (minutes)">
+    <br>
+    <button id="addCoordBtn">Thêm Tọa Độ và Thời Gian</button>
+    <button id="stopBtn">Dừng Click</button>
     
     <script src="popup.js"></script>
   </body>
