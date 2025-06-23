@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "Click Points Extension",
+  "description": "Click vào 2 điểm cụ thể trên trang web và có thể set uptime.",
+  "version": "1.0",
+  "permissions": [
+    "activeTab"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  }
+}
