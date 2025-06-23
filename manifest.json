@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Click Points Extension",
-  "description": "Click vào 2 điểm cụ thể trên trang web và có thể set uptime.",
+  "name": "Click at Coordinates with Time Interval",
+  "description": "Click vào tọa độ cụ thể trên trang web với thời gian được tính bằng phút.",
   "version": "1.0",
   "permissions": [
     "activeTab"
